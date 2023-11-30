@@ -35,8 +35,8 @@ scan_plot <- function(data, shp, id) {
     plot(shp$geometry, col=col1,axes=F, border="gray")
     plot(shp$geometry[cluster2], border="black", add=TRUE)
     graphics::title(paste("Cluster map for", unique(id[[i]]$week), sep=" "))
-    graphics::legend('bottomright',legend=c("[0, 210)", "[210, 490)", "[490, 1010)", "[1010, 1600)", "≥ 1600"),fill=cols,
-           cex=0.7)
+    # graphics::legend('bottomright',legend=c("[0, 210)", "[210, 490)", "[490, 1010)", "[1010, 1600)", "≥ 1600"),fill=cols,
+    #        cex=0.7)
     grDevices::dev.off()
 
     print(temp)
