@@ -1,4 +1,4 @@
-#' scan.plot
+#' scan_plot
 #'
 #' Plot spatial hot-spot detected by scan statistics (Kulldorff, 1997).
 #'
@@ -7,7 +7,7 @@
 #' @param id list of cluster detected by scan.seq function
 #' @param wd working directory for saving plots
 
-scan.plot2 <- function(data, shp, id, wd) {
+scan_plot <- function(data, shp, id, wd) {
 
   library(RColorBrewer)
 

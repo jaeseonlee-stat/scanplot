@@ -1,4 +1,4 @@
-#' scan.seq
+#' scan_seq
 #'
 #' Implement scan statistics (Kulldorff, 1997) for spatio-temporal data.
 #'
@@ -12,7 +12,7 @@
 #' @param alpha.level default is 0.05
 #' @param wd working directory for saving plots
 
-scan.seq <- function(data, shp, shp.name, centroid, pop.upper.bound = .2, n.simulations = 999, alpha.level = .05, wd) {
+scan_seq <- function(data, shp, shp.name, centroid, pop.upper.bound = .2, n.simulations = 999, alpha.level = .05, wd) {
 
   n.space <- nrow(shp)
 
