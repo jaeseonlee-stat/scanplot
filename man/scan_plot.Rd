@@ -4,16 +4,14 @@
 \alias{scan_plot}
 \title{scan_plot}
 \usage{
-scan_plot(data, shp, id, wd)
+scan_plot(data, shp, id)
 }
 \arguments{
 \item{data}{N (space) X M (time) matrix}
 
 \item{shp}{shape file with identical space order with data.}
 
-\item{id}{list of cluster detected by scan.seq function}
-
-\item{wd}{working directory for saving plots}
+\item{id}{list of cluster. output of scan.seq function}
 }
 \description{
 Plot spatial hot-spot detected by scan statistics (Kulldorff, 1997).

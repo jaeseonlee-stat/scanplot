@@ -12,7 +12,7 @@ scan_seq(
   pop.upper.bound = 0.2,
   n.simulations = 999,
   alpha.level = 0.05,
-  wd
+  save = FALSE
 )
 }
 \arguments{
@@ -30,7 +30,7 @@ scan_seq(
 
 \item{alpha.level}{default is 0.05}
 
-\item{wd}{working directory for saving plots}
+\item{save}{logical: whether to save the result of scan statistics as csv and txt file.}
 }
 \description{
 Implement scan statistics (Kulldorff, 1997) for spatio-temporal data.
