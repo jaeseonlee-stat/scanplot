@@ -40,7 +40,8 @@ scan_seq <- function(data, shp, shp.name, centroid, pop.upper.bound = .2, n.simu
                               rel_tol=1e-3, population=rep(1,n.space)))
       options(show.error.messages = T)
 
-      if (class(scan) !="scanstatistic") {next}
+      # if (class(scan) !="scanstatistic") {next}
+      if (!inherits(scan, "scanstatistic")) {next}
 
       cluster <- scan$MLC$locations
       for (j in 1:length(cluster)) {
