@@ -28,7 +28,7 @@ scan_plot <- function(data, shp, id, wd) {
 
     jpeg(paste("cluster_",unique(id[[i]]$week),".jpeg",sep = ""), res=600, width=200, height=150, pointsize=9,units='mm')
     brks <- cut(counts, breaks=c(0,210,490,1010,1600,max(counts)+1), include.lowest = TRUE, right=FALSE)
-    cols <- brewer.pal(5, "Reds")
+    cols <- RColorBrewer::brewer.pal(5, "Reds")
     for (k in 1:n.space) {col1[k] <- cols[brks[k]]}
     plot(shp$geometry, col=col1,axes=F, border="gray")
     plot(shp$geometry[cluster2], border="black", add=TRUE)

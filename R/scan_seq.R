@@ -35,7 +35,7 @@ scan_seq <- function(data, shp, shp.name, centroid, pop.upper.bound = .2, n.simu
 
     if (length(counts[counts==0])/n.space > 0.3) {
       options(show.error.messages = F)
-      try(scan <- scan_eb_zip(counts=counts, zones=zones, n_mcsim=n.simulations,
+      try(scan <- scanstatistics::scan_eb_zip(counts=counts, zones=zones, n_mcsim=n.simulations,
                               rel_tol=1e-3, population=rep(1,n.space)))
       options(show.error.messages = T)
 
@@ -50,7 +50,7 @@ scan_seq <- function(data, shp, shp.name, centroid, pop.upper.bound = .2, n.simu
 
     } else {
       exp.cases <- expected(rep(1, n.space), counts, 1)
-      scan <- kulldorff(geo, counts, rep(1, n.space), expected.cases = exp.cases, pop.upper.bound,
+      scan <- SpatialEpi::kulldorff(geo, counts, rep(1, n.space), expected.cases = exp.cases, pop.upper.bound,
                         n.simulations, alpha.level, FALSE)
       cluster <- scan$most.likely.cluster$location.IDs.included
 
