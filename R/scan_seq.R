@@ -5,6 +5,7 @@
 #' @import SpatialEpi
 #' @import scanstatistics
 #' @import utils
+#' @import sf
 #'
 #' @param data N (space) X M (time) matrix
 #' @param shp shape file with identical space order with data.
