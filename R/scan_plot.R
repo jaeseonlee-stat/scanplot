@@ -9,12 +9,13 @@
 #' @import sf
 #'
 #' @param data N (space) X M (time) matrix
-#' @param shp shape file with identical space order with data.
+#' @param shp shape file with identical space order with data
 #' @param id list of cluster. output of scan.seq function
+#' @param allmap logical: if FALSE, plot the map with detected cluster time point only
 #'
 #' @export
 
-scan_plot <- function(data, shp, id) {
+scan_plot <- function(data, shp, id, allmap = FALSE) {
 
   if (is.null(id)) {
     stop("id is null: implement scan statistics using scan_seq() first")
@@ -28,8 +29,8 @@ scan_plot <- function(data, shp, id) {
     temp <- temp + 1
     counts <- data[ , i]
 
-
-      if (length(id) < i | tryCatch(is.null(id[[i]]), error = function(e) TRUE)) { # No detected cluster
+      if (tryCatch(is.null(id[[i]]), error = function(e) TRUE) & allmap == TRUE) {
+        # No detected cluster
 
         grDevices::jpeg(paste("cluster_", colnames(data)[i], ".jpeg", sep = ""),
                         res = 600, width = 200, height = 150, pointsize = 9,units = 'mm')
@@ -68,7 +69,7 @@ scan_plot <- function(data, shp, id) {
         graphics::legend('bottomright', legend = c("0", levels(leg)[-1]), fill = cols)
         grDevices::dev.off()
 
-      } else {
+      } else if (tryCatch(!is.null(id[[i]]), error = function(e) FALSE)) {
         # If there are detected clusters
 
         shp.order <- id[[i]]$shp.order
