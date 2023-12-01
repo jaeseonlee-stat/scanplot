@@ -5,6 +5,7 @@
 #' @import RColorBrewer
 #' @import grDevices
 #' @import graphics
+#' @import stringr
 #'
 #' @param data N (space) X M (time) matrix
 #' @param shp shape file with identical space order with data.
@@ -15,31 +16,105 @@
 scan_plot <- function(data, shp, id) {
 
   if (is.null(id)) {
-    stop("id is null, so implement scan statistics using scan.seq function")
+    stop("id is null: implement scan statistics using scan_seq() first")
   }
 
   n.space <- nrow(shp)
 
-  col1 <- c(); temp <-0
-  for (i in 1:length(id)) {
+  temp <-0
+  for (i in 1:ncol(data)) {
 
     temp <- temp + 1
-    index <- which(colnames(data) == unique(id[[i]]$week)) # in case of no cluster week
-    counts <- data[,index]
-    cluster2 <- id[[i]]$shp.order
+    counts <- data[ , i]
 
-    grDevices::jpeg(paste("cluster_",unique(id[[i]]$week),".jpeg",sep = ""), res=600, width=200, height=150, pointsize=9,units='mm')
-    brks <- cut(counts, breaks=c(0,210,490,1010,1600,max(counts)+1), include.lowest = TRUE, right=FALSE)
-    cols <- RColorBrewer::brewer.pal(5, "Reds")
-    for (k in 1:n.space) {col1[k] <- cols[brks[k]]}
-    plot(shp$geometry, col=col1,axes=F, border="gray")
-    plot(shp$geometry[cluster2], border="black", add=TRUE)
-    graphics::title(paste("Cluster map for", unique(id[[i]]$week), sep=" "))
-    # graphics::legend('bottomright',legend=c("[0, 210)", "[210, 490)", "[490, 1010)", "[1010, 1600)", "≥ 1600"),fill=cols,
-    #        cex=0.7)
-    grDevices::dev.off()
+
+      if (length(id) < i | tryCatch(is.null(id[[i]]), error = function(e) TRUE)) { # No detected cluster
+
+        grDevices::jpeg(paste("cluster_", colnames(data)[i], ".jpeg", sep = ""),
+                        res = 600, width = 200, height = 150, pointsize = 9,units = 'mm')
+
+        uniq <- sort(unique(data[,i])) # divide the counts into a few groups to color the map
+
+        if (length(table(data[,i])) < 3) {
+
+          cols <- RColorBrewer::brewer.pal(3, "Reds")[-3]
+          brks <- cut(data[,i], breaks=c(0, uniq[2], uniq[2]+1), include.lowest = TRUE, right=FALSE, labels=FALSE)
+          leg <- cut(data[,i], breaks=c(0, uniq[2], uniq[2]+1), include.lowest = TRUE, right=FALSE)
+          stringr::str_sub(levels(leg)[2],-1) <- ")"
+
+        } else if (length(table(data[,i])) == 3) {
+
+          cols <- RColorBrewer::brewer.pal(3, "Reds")
+          brks <- cut(data[,i], breaks=c(0, uniq[2], uniq[3], uniq[3]+1), include.lowest = TRUE, right=FALSE, labels=FALSE)
+          leg <- cut(data[,i], breaks=c(0, uniq[2], uniq[3], uniq[3]+1), include.lowest = TRUE, right=FALSE)
+          stringr::str_sub(levels(leg)[3],-1) <- ")"
+
+        } else {
+
+          cols <- RColorBrewer::brewer.pal(3, "Reds")
+          len <- length(unique(data[,i]))
+          brks <- cut(data[,i], breaks=c(0, uniq[2], uniq[4], uniq[len]+1), include.lowest = TRUE, right=FALSE, labels=FALSE)
+          leg <- cut(data[,i], breaks=c(0, uniq[2], uniq[4], uniq[len]+1), include.lowest = TRUE, right=FALSE)
+          stringr::str_sub(levels(leg)[3], -1) <- ")"
+
+        }
+
+        # plotting the map
+        col1 <- c()
+        for (k in 1:n.space) {col1[k] <- cols[brks[k]]}
+        plot(shp$geometry, col = col1, axes = F, border = "gray")
+        graphics::title(paste("Incidence map for", colnames(data)[i], sep = " "))
+        graphics::legend('bottomright', legend = c("0", levels(leg)[-1]), fill = cols)
+        grDevices::dev.off()
+
+      } else {
+        # If there are detected clusters
+
+        shp.order <- id[[i]]$shp.order
+
+        grDevices::jpeg(paste("cluster_", unique(id[[i]]$week), ".jpeg", sep = ""),
+                        res = 600, width = 200, height = 150, pointsize = 9, units = 'mm')
+
+        # divide the counts into a few groups to color the map
+        uniq <- sort(unique(data[,i]))
+
+        if (length(table(data[,i])) < 3) {
+
+          cols <- RColorBrewer::brewer.pal(3, "Reds")[-3]
+          brks <- cut(data[,i], breaks = c(0, uniq[2], uniq[2]+1), include.lowest = TRUE, right=FALSE, labels=FALSE)
+          leg <- cut(data[,i], breaks=c(0, uniq[2], uniq[2]+1), include.lowest = TRUE, right=FALSE)
+          stringr::str_sub(levels(leg)[2],-1) <- ")"
+
+        } else if (length(table(data[,i])) == 3) {
+
+          cols <- RColorBrewer::brewer.pal(3,"Reds")
+          brks <- cut(data[,i], breaks=c(0, uniq[2], uniq[3], uniq[3]+1), include.lowest = TRUE, right=FALSE, labels=FALSE)
+          leg <- cut(data[,i], breaks=c(0, uniq[2], uniq[3], uniq[3]+1), include.lowest = TRUE, right=FALSE)
+          stringr::str_sub(levels(leg)[3],-1) <- ")"
+
+        } else {
+
+          cols <- RColorBrewer::brewer.pal(3,"Reds")
+          len <- length(unique(data[,i]))
+          brks <- cut(data[,i], breaks=c(0, uniq[2], uniq[4], uniq[len]+1), include.lowest = TRUE, right=FALSE, labels=FALSE)
+          leg <- cut(data[,i], breaks=c(0, uniq[2], uniq[4], uniq[len]+1), include.lowest = TRUE, right=FALSE)
+          stringr::str_sub(levels(leg)[3],-1) <- ")"
+
+        }
+
+        # plotting the map
+        col1 <- c()
+        for (k in 1:n.space) {col1[k] <- cols[brks[k]]}
+        plot(shp$geometry, col=col1,axes=F, border="gray")
+        plot(shp$geometry[shp.order], border="black", add=TRUE)
+        graphics::title(paste("Cluster map with incidence for", unique(id[[i]]$week), sep = " "))
+        graphics::legend('bottomright', legend = c("0",levels(leg)[-1]), fill = cols)
+        grDevices::dev.off()
+
+      }
 
     print(temp)
+
   }
 
 }
