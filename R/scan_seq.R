@@ -36,11 +36,10 @@ scan_seq <- function(data, shp, shp.name, centroid, pop.upper.bound = .2, n.simu
 
     if (length(counts[counts==0])/n.space > 0.3) {
       options(show.error.messages = F)
-      try(scan <- scanstatistics::scan_eb_zip(counts=counts, zones=zones, n_mcsim=n.simulations,
-                              rel_tol=1e-3, population=rep(1,n.space)))
+      try(scan <- scanstatistics::scan_eb_zip(counts = counts, zones = zones, n_mcsim = n.simulations,
+                              rel_tol = 1e-3, population = rep(1, n.space)))
       options(show.error.messages = T)
 
-      # if (class(scan) !="scanstatistic") {next}
       if (!inherits(scan, "scanstatistic")) {next}
 
       cluster <- scan$MLC$locations
@@ -70,11 +69,11 @@ scan_seq <- function(data, shp, shp.name, centroid, pop.upper.bound = .2, n.simu
     cluster.cases <- sum(counts[cluster2])
     percent <- round(sum(counts[cluster2])/sum(counts)*100,2)
 
-    if (length(cluster2)!=0) {
-      id[[temp]] <- data.frame(week=rep(colnames(data)[i],length(cluster2)),
-                               state=shp.name[cluster2, 1], city=shp.name[cluster2, 2],
-                               No_of_cases=No.cases, RR=RR, Exp.cases=Exp.cases, pvalue=p.val,
-                               total=total, cluster.cases=cluster.cases, percent=percent, shp.order=cluster2)
+    if (length(cluster2) != 0) {
+      id[[temp]] <- data.frame(week = rep(colnames(data)[i], length(cluster2)),
+                               state = shp.name[cluster2, 1], city = shp.name[cluster2, 2],
+                               No_of_cases = No.cases, RR = RR, Exp.cases = Exp.cases, pvalue = p.val,
+                               total = total, cluster.cases = cluster.cases, percent = percent, shp.order = cluster2)
       id[[temp]] <- id[[temp]][order(id[[temp]][,"state"]),]
     }
 
@@ -82,6 +81,8 @@ scan_seq <- function(data, shp, shp.name, centroid, pop.upper.bound = .2, n.simu
 
     print(temp)
   }
+
+  if (length(id) == 0) {stop("No detected cluster in given data")}
 
   if (save == TRUE) {
 
