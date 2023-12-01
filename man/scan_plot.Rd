@@ -4,14 +4,16 @@
 \alias{scan_plot}
 \title{scan_plot}
 \usage{
-scan_plot(data, shp, id)
+scan_plot(data, shp, id, allmap = FALSE)
 }
 \arguments{
 \item{data}{N (space) X M (time) matrix}
 
-\item{shp}{shape file with identical space order with data.}
+\item{shp}{shape file with identical space order with data}
 
 \item{id}{list of cluster. output of scan.seq function}
+
+\item{allmap}{logical: if FALSE, plot the map with detected cluster time point only}
 }
 \description{
 Plot spatial hot-spot detected by scan statistics (Kulldorff, 1997).
