@@ -20,7 +20,7 @@ scan_seq(
 
 \item{shp}{shape file with identical space order with data.}
 
-\item{shp.name}{N X 2 matrix with (state name, city name). Order must be identical to shape file!}
+\item{shp.name}{N X 2 matrix with (state name, county name). Order must be identical to shape file!}
 
 \item{centroid}{N X 2 matrix with (latitude, longitude)}
 
