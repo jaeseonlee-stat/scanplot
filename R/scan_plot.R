@@ -7,6 +7,7 @@
 #' @import graphics
 #' @import stringr
 #' @import sf
+#' @import stats
 #'
 #' @param data N (space) X M (time) matrix
 #' @param shp shape file with identical space order with data
@@ -53,10 +54,12 @@ scan_plot <- function(data, shp, id, allmap = FALSE) {
 
         } else {
 
-          cols <- RColorBrewer::brewer.pal(3, "Reds")
+          cols <- RColorBrewer::brewer.pal(4, "Reds")
           len <- length(unique(data[,i]))
-          brks <- cut(data[,i], breaks=c(0, uniq[2], uniq[4], uniq[len]+1), include.lowest = TRUE, right=FALSE, labels=FALSE)
-          leg <- cut(data[,i], breaks=c(0, uniq[2], uniq[4], uniq[len]+1), include.lowest = TRUE, right=FALSE)
+          brks <- cut(data[,i], breaks=unique(stats::quantile(data[,i])), include.lowest = TRUE, right=FALSE, labels=FALSE)
+          leg <- cut(data[,i], breaks=unique(stats::quantile(data[,i])), include.lowest = TRUE, right=FALSE)
+          # brks <- cut(data[,i], breaks=c(0, uniq[2], uniq[4], uniq[len]+1), include.lowest = TRUE, right=FALSE, labels=FALSE)
+          # leg <- cut(data[,i], breaks=c(0, uniq[2], uniq[4], uniq[len]+1), include.lowest = TRUE, right=FALSE)
           stringr::str_sub(levels(leg)[3], -1) <- ")"
 
         }
@@ -96,11 +99,13 @@ scan_plot <- function(data, shp, id, allmap = FALSE) {
 
         } else {
 
-          cols <- RColorBrewer::brewer.pal(3,"Reds")
+          cols <- RColorBrewer::brewer.pal(4, "Reds")
           len <- length(unique(data[,i]))
-          brks <- cut(data[,i], breaks=c(0, uniq[2], uniq[4], uniq[len]+1), include.lowest = TRUE, right=FALSE, labels=FALSE)
-          leg <- cut(data[,i], breaks=c(0, uniq[2], uniq[4], uniq[len]+1), include.lowest = TRUE, right=FALSE)
-          stringr::str_sub(levels(leg)[3],-1) <- ")"
+          brks <- cut(data[,i], breaks=unique(stats::quantile(data[,i])), include.lowest = TRUE, right=FALSE, labels=FALSE)
+          leg <- cut(data[,i], breaks=unique(stats::quantile(data[,i])), include.lowest = TRUE, right=FALSE)
+          # brks <- cut(data[,i], breaks=c(0, uniq[2], uniq[4], uniq[len]+1), include.lowest = TRUE, right=FALSE, labels=FALSE)
+          # leg <- cut(data[,i], breaks=c(0, uniq[2], uniq[4], uniq[len]+1), include.lowest = TRUE, right=FALSE)
+          stringr::str_sub(levels(leg)[3], -1) <- ")"
 
         }
 
