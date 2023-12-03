@@ -9,7 +9,7 @@
 #'
 #' @param data N (space) X M (time) matrix
 #' @param shp shape file with identical space order with data.
-#' @param shp.name N X 2 matrix with (state name, city name). Order must be identical to shape file!
+#' @param shp.name N X 2 matrix with (state name, county name). Order must be identical to shape file!
 #' @param centroid N X 2 matrix with (latitude, longitude)
 #' @param pop.upper.bound default is 0.2
 #' @param n.simulations default is 999
@@ -37,15 +37,15 @@ scan_seq <- function(data, shp, shp.name, centroid, pop.upper.bound = .2, n.simu
 
     if (length(counts[counts==0])/n.space > 0.3) {
       options(show.error.messages = F)
-      try(scan <- scanstatistics::scan_eb_zip(counts = counts, zones = zones, n_mcsim = n.simulations,
-                              rel_tol = 1e-3, population = rep(1, n.space)))
+      try(scan <- scanstatistics::scan_eb_zip(counts = matrix(counts, nrow = 1), zones = zones, n_mcsim = n.simulations,
+                              rel_tol = 1e-3, population = matrix(rep(1, n.space), nrow=1)))
       options(show.error.messages = T)
 
       if (!inherits(scan, "scanstatistic")) {next}
 
       cluster <- scan$MLC$locations
       for (j in 1:length(cluster)) {
-        if (scan$MC_pvalue<0.05) {cluster2 <- c(cluster2,cluster[j])}
+        if (scan$MC_pvalue < 0.05) {cluster2 <- c(cluster2,cluster[j])}
       }
       RR <- round(scan$MLC$relative_risk,2)
       p.val <- scan$MC_pvalue
@@ -72,7 +72,7 @@ scan_seq <- function(data, shp, shp.name, centroid, pop.upper.bound = .2, n.simu
 
     if (length(cluster2) != 0) {
       id[[temp]] <- data.frame(week = rep(colnames(data)[i], length(cluster2)),
-                               state = shp.name[cluster2, 1], city = shp.name[cluster2, 2],
+                               state = shp.name[cluster2, 1], county = shp.name[cluster2, 2],
                                No_of_cases = No.cases, RR = RR, Exp.cases = Exp.cases, pvalue = p.val,
                                total = total, cluster.cases = cluster.cases, percent = percent, shp.order = cluster2)
       id[[temp]] <- id[[temp]][order(id[[temp]][,"state"]),]
