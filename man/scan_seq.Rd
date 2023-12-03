@@ -6,7 +6,6 @@
 \usage{
 scan_seq(
   data,
-  shp,
   shp.name,
   centroid,
   pop.upper.bound = 0.2,
@@ -17,8 +16,6 @@ scan_seq(
 }
 \arguments{
 \item{data}{N (space) X M (time) matrix}
-
-\item{shp}{shape file with identical space order with data.}
 
 \item{shp.name}{N X 2 matrix with (state name, county name). Order must be identical to shape file!}
 
