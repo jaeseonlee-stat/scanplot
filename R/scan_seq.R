@@ -8,7 +8,6 @@
 #' @import sf
 #'
 #' @param data N (space) X M (time) matrix
-#' @param shp shape file with identical space order with data.
 #' @param shp.name N X 2 matrix with (state name, county name). Order must be identical to shape file!
 #' @param centroid N X 2 matrix with (latitude, longitude)
 #' @param pop.upper.bound default is 0.2
@@ -18,9 +17,9 @@
 #'
 #' @export
 
-scan_seq <- function(data, shp, shp.name, centroid, pop.upper.bound = .2, n.simulations = 999, alpha.level = .05, save = FALSE) {
+scan_seq <- function(data, shp.name, centroid, pop.upper.bound = .2, n.simulations = 999, alpha.level = .05, save = FALSE) {
 
-  n.space <- nrow(shp)
+  n.space <- nrow(data)
 
   cent <- centroid
   geo <- SpatialEpi::latlong2grid(cent)
