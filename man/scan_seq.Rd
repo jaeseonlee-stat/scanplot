@@ -32,3 +32,18 @@ scan_seq(
 \description{
 Implement scan statistics (Kulldorff, 1997) for spatio-temporal data.
 }
+\examples{
+# Load the data
+data(covid_NY)
+data(shp_name)
+data(centroid)
+
+# Implement spatial scan statistics
+# Assign appropriate working directory before "save = TRUE"
+id <- scan_seq(data = covid_NY, shp.name = shp_name, centroid = centroid,
+               pop.upper.bound = .2, n.simulations = 999, alpha.level = .05, save = FALSE)
+id
+}
+\seealso{
+\code{\link[=scan_plot]{scan_plot()}}
+}

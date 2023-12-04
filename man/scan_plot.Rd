@@ -18,3 +18,24 @@ scan_plot(data, shp, id, allmap = FALSE)
 \description{
 Plot spatial hot-spot detected by scan statistics (Kulldorff, 1997).
 }
+\examples{
+# Load the required package
+library(sf) # st_read
+
+# Load the data
+data(covid_NY)
+data(shp_name)
+data(centroid)
+shp_NY <- sf::st_read(system.file("extdata", "shp_NY.shp", package = 'scanplot'))
+
+# Implement spatial scan statistics
+# Assign appropriate working directory before "save = TRUE"
+id <- scan_seq(data = covid_NY, shp.name = shp_name, centroid = centroid,
+               pop.upper.bound = .2, n.simulations = 999, alpha.level = .05, save = FALSE)
+
+# Assign appropriate working directory before scan_plot()
+scan_plot(data = covid_NY, shp = shp_NY, id = id, allmap = FALSE)
+}
+\seealso{
+\code{\link[=scan_seq]{scan_seq()}}
+}

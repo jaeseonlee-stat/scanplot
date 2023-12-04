@@ -16,6 +16,20 @@
 #' @param save logical: whether to save the result of scan statistics as csv and txt file.
 #'
 #' @export
+#'
+#' @seealso [scan_plot()]
+#'
+#' @examples
+#' # Load the data
+#' data(covid_NY)
+#' data(shp_name)
+#' data(centroid)
+#'
+#' # Implement spatial scan statistics
+#' # Assign appropriate working directory before "save = TRUE"
+#' id <- scan_seq(data = covid_NY, shp.name = shp_name, centroid = centroid,
+#'                pop.upper.bound = .2, n.simulations = 999, alpha.level = .05, save = FALSE)
+#' id
 
 scan_seq <- function(data, shp.name, centroid, pop.upper.bound = .2, n.simulations = 999, alpha.level = .05, save = FALSE) {
 
