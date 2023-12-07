@@ -1,18 +1,19 @@
 #' scan_plot
 #'
-#' Plot spatial hot-spot detected by scan statistics (Kulldorff, 1997).
+#' Plot spatial clusters detected by scan statistics (Kulldorff, 1997) across different temporal domains.
+#' This function is useful for plotting the results of scan statistics conducted at "multiple" time points
 #'
 #' @import RColorBrewer
 #' @import grDevices
 #' @import graphics
 #' @import stringr
-#' @import sf
 #' @import stats
+#' @import sf
 #'
-#' @param data N (space) X M (time) matrix
-#' @param shp shape file with identical space order with data
-#' @param id list of cluster. output of scan.seq function
-#' @param allmap logical: if FALSE, plot the map with detected cluster time point only
+#' @param data n (space) X t (time) matrix of spatio-temporal data.
+#' @param shp The shape file on region of interest. The space order must be identical to spatio-temporal data.
+#' @param id The list of cluster, mainly the output from scan.seq() function in this package.
+#' @param allmap Logical: if FALSE, plot the map with detected cluster time point only. Default is FALSE.
 #'
 #' @export
 #'
@@ -30,6 +31,7 @@
 #'
 #' # Implement spatial scan statistics
 #' # Assign appropriate working directory before "save = TRUE"
+#' # setwd('your working directory')
 #' id <- scan_seq(data = covid_NY, shp.name = shp_name, centroid = centroid,
 #'                pop.upper.bound = .2, n.simulations = 999, alpha.level = .05, save = FALSE)
 #'

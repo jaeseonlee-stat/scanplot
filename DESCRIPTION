@@ -1,11 +1,11 @@
 Package: scanplot
-Title: Implement spatial scan statistics, and plot
+Title: Apply Kulldorff's (1997) spatial scan statistics and visualize detected spatial clusters over various time points.
 Version: 0.0.0.9000
 Authors@R: 
     person("Jaeseon", "Lee",  
     email = "jaeseon.lee@stat.tamu.edu", 
     role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: The package 'scanplot' harnesses Kulldorff's (1997) scan statistics to efficiently detect spatial and temporal patterns in spatio-temporal datasets, with automatic distribution selection based on zero case prevalence between a Zero-inflated Poisson and Poisson distribution. The package includes a specialized plotting function for visualizing spatial clusters identified by the scan statistics across various temporal domains. This comprehensive toolkit offers users a streamlined solution for robust analyses and clear visualizations of spatio-temporal patterns in their data.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

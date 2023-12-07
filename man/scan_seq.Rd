@@ -15,22 +15,23 @@ scan_seq(
 )
 }
 \arguments{
-\item{data}{N (space) X M (time) matrix}
+\item{data}{n (space) X m (time) matrix of spatio-temporal data.}
 
-\item{shp.name}{N X 2 matrix with (state name, county name). Order must be identical to shape file!}
+\item{shp.name}{n X 2 matrix with (state name, county name). The order must be identical to shape file!}
 
-\item{centroid}{N X 2 matrix with (latitude, longitude)}
+\item{centroid}{n X 2 matrix with (latitude, longitude).}
 
-\item{pop.upper.bound}{default is 0.2}
+\item{pop.upper.bound}{The upper bound on the proportion of the total population for each zone. Default is 0.2.}
 
-\item{n.simulations}{default is 999}
+\item{n.simulations}{The number of simulate scan statistics to generate to calculate a p-value. Default is 999.}
 
-\item{alpha.level}{default is 0.05}
+\item{alpha.level}{A significance level for kulldorff spatial scan statistics. Default is 0.05.}
 
-\item{save}{logical: whether to save the result of scan statistics as csv and txt file.}
+\item{save}{Logical: whether to save the result of scan statistics as csv and txt file. Default is FALSE.}
 }
 \description{
-Implement scan statistics (Kulldorff, 1997) for spatio-temporal data.
+Apply Kulldorff's (1997) scan statistics to detect spatial and temporal patterns in the data at each time point, facilitating cluster detection.
+We assumed a Zero-inflated Poisson distribution if the zero cases in data exceed 30\% of the total incidences, Poisson distribution, otherwise.
 }
 \examples{
 # Load the data
@@ -40,10 +41,11 @@ data(centroid)
 
 # Implement spatial scan statistics
 # Assign appropriate working directory before "save = TRUE"
+# setwd('your working directory')
 id <- scan_seq(data = covid_NY, shp.name = shp_name, centroid = centroid,
                pop.upper.bound = .2, n.simulations = 999, alpha.level = .05, save = FALSE)
 id
 }
 \seealso{
-\code{\link[=scan_plot]{scan_plot()}}
+\code{\link[=scan_plot]{scan_plot()}}, \code{\link[scanstatistics:scan_eb_zip]{scanstatistics::scan_eb_zip()}}, \code{\link[SpatialEpi:kulldorff]{SpatialEpi::kulldorff()}}
 }

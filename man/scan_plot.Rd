@@ -7,16 +7,17 @@
 scan_plot(data, shp, id, allmap = FALSE)
 }
 \arguments{
-\item{data}{N (space) X M (time) matrix}
+\item{data}{n (space) X t (time) matrix of spatio-temporal data.}
 
-\item{shp}{shape file with identical space order with data}
+\item{shp}{The shape file on region of interest. The space order must be identical to spatio-temporal data.}
 
-\item{id}{list of cluster. output of scan.seq function}
+\item{id}{The list of cluster, mainly the output from scan.seq() function in this package.}
 
-\item{allmap}{logical: if FALSE, plot the map with detected cluster time point only}
+\item{allmap}{Logical: if FALSE, plot the map with detected cluster time point only. Default is FALSE.}
 }
 \description{
-Plot spatial hot-spot detected by scan statistics (Kulldorff, 1997).
+Plot spatial clusters detected by scan statistics (Kulldorff, 1997) across different temporal domains.
+This function is useful for plotting the results of scan statistics conducted at "multiple" time points
 }
 \examples{
 # Load the required package
@@ -30,6 +31,7 @@ shp_NY <- sf::st_read(system.file("extdata", "shp_NY.shp", package = 'scanplot')
 
 # Implement spatial scan statistics
 # Assign appropriate working directory before "save = TRUE"
+# setwd('your working directory')
 id <- scan_seq(data = covid_NY, shp.name = shp_name, centroid = centroid,
                pop.upper.bound = .2, n.simulations = 999, alpha.level = .05, save = FALSE)
 
