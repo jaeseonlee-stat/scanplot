@@ -1,5 +1,5 @@
 Package: scanplot
-Title: Apply Kulldorff's (1997) spatial scan statistics and visualize detected spatial clusters over various time points.
+Title: Apply Kulldorff's (1997) spatial scan statistics and visualize detected spatial clusters over various time points
 Version: 0.0.0.9000
 Authors@R: 
     person("Jaeseon", "Lee",  
