@@ -115,11 +115,13 @@ id <- scan_seq(data = covid_US, shp.name = shp_name, centroid = centroid,
 scan_plot(data = covid_US, shp = shp_US, id = id, allmap = FALSE)
 ```
 
-The first two resulting maps are as follows. The black-bordered line indicate detected spatial group by scan statistics.
+The first three resulting maps are as follows. The black-bordered line indicate detected spatial group by scan statistics. First week has no spatial cluster, whereas others have.
 
-![](images/cluster_X2020.03.24.jpeg){width="700"}
+![](images/cluster_X2020.03.17.jpeg)
 
-![](images/cluster_X2020.03.31.jpeg){width="700"}
+![](images/cluster_X2020.03.24.jpeg)
+
+![](images/cluster_X2020.03.31.jpeg)
 
 ## Details
 
