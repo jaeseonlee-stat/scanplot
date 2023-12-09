@@ -2,9 +2,9 @@
 
 Jaeseon Lee
 
-For spatial analysis, Kulldorff's (1997) scan statistics is a typical statistic for cluster detection. The package '*scanplot*' **harnesses scan statistics** to efficiently detect spatial and temporal patterns in spatio-temporal datasets, with automatic distribution selection based on zero case prevalence. On top of that, the package includes **a specialized plotting function** for visualizing spatial clusters identified by the scan statistics across various temporal domains. This comprehensive toolkit offers users a streamlined solution for robust analyses and clear visualizations of spatio-temporal patterns in their data.
+For spatial analysis, Kulldorff's (1997) scan statistics is a typical methodology for cluster detection. The package '*scanplot*' **harnesses scan statistics** (via *scan_seq()*) to efficiently detect spatial and temporal patterns in spatio-temporal datasets, with automatic distribution selection based on zero case prevalence. On top of that, the package includes **a specialized plotting function** (via *scan_plot()*) for visualizing spatial clusters identified by the scan statistics across various temporal domains. This comprehensive toolkit offers users a streamlined solution for robust analyses and clear visualizations of spatio-temporal patterns in their data.
 
-We assumed a Zero-inflated Poisson distribution if the zero cases exceed 30% of the total, and the Poisson distribution, otherwise. Also, the maximum size of the scanning windows is set to 50%.
+For implement scan statistics, we assumed a Zero-inflated Poisson distribution if the zero cases exceed 30% of the total, and the Poisson distribution, otherwise. Also, the maximum size of the scanning windows is set to 50%.
 
 ## Installation
 
@@ -23,7 +23,7 @@ To use '*scanplot*' package, use the following code into your R console:
 library(scanplot)
 ```
 
-*'scanplot'* consists of two functions: *scan_seq()* and *scan_plot()*.
+The package *'scanplot'* consists of two functions: *scan_seq()* and *scan_plot()*.
 
 ### 1. scan_seq()
 
@@ -38,7 +38,7 @@ data(shp_name)
 data(centroid)
 ```
 
-After loading data, implement spatial scan statistics. It is required to assign appropriate working directory for "save = TRUE", which enables to save the result of scan statistics as csv and txt file.
+After loading data, implement spatial scan statistics. It is required to assign appropriate working directory for "save = TRUE", which enables to save the result of scan statistics as csv and txt files.
 
 ``` r
 # Implement spatial scan statistics
@@ -48,7 +48,7 @@ id <- scan_seq(data = covid_US, shp.name = shp_name, centroid = centroid,
                pop.upper.bound = .2, n.simulations = 999, alpha.level = .05, save = FALSE)
 ```
 
-As a result, the following list can be obtained. For the first element of resulted list, NULL indicates that there is no detected spatial cluster on the first week. The second element of the list shows detected spatial group for the second week (2020.03.24 - 2020.03.30).
+As a result, the following list *'id'* can be obtained. For the first element of resulted list, NULL indicates that there is no detected spatial cluster on the first week. The second element of the list shows detected spatial group for the second week (2020.03.24 - 2020.03.30).
 
 ``` r
 head(id, 2)
@@ -115,7 +115,7 @@ id <- scan_seq(data = covid_US, shp.name = shp_name, centroid = centroid,
 scan_plot(data = covid_US, shp = shp_US, id = id, allmap = FALSE)
 ```
 
-The first three resulting maps are as follows. The black-bordered line indicate detected spatial group by scan statistics. First week has no spatial cluster, whereas others have.
+The first three of generated maps are as follows. Regions with black-bordered line represent detected spatial group by scan statistics. As you can see, the first week has no spatial cluster, whereas others have.
 
 ![](images/cluster_X2020.03.17.jpeg)
 
