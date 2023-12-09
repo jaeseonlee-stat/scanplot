@@ -5,19 +5,17 @@
 \alias{shp_name}
 \title{shp_name}
 \format{
-\subsection{'shp_name'}{
+shp_name is a data frame with 338 counties (rows) and 2 spatial names (columns).
 
-A data frame with 338 rows and 2 columns:
 \describe{
-\item{state}{state name}
-\item{county}{county name}
-}
+\item{state}{The first column represents the name of state for a given row}
+\item{county}{The second column represents the name of county for a given row}
 }
 }
 \usage{
 shp_name
 }
 \description{
-A subset of data from
+shp_name consists of 338 counties (rows) and their state and county names (columns).
 }
 \keyword{datasets}

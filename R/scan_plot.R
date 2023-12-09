@@ -24,19 +24,19 @@
 #' library(sf) # st_read
 #'
 #' # Load the data
-#' data(covid_NY)
+#' data(covid_US)
 #' data(shp_name)
 #' data(centroid)
-#' shp_NY <- sf::st_read(system.file("extdata", "shp_NY.shp", package = 'scanplot'))
+#' shp_US <- sf::st_read(system.file("extdata", "shp_US.shp", package = 'scanplot'))
 #'
 #' # Implement spatial scan statistics
 #' # Assign appropriate working directory before "save = TRUE"
 #' # setwd('your working directory')
-#' id <- scan_seq(data = covid_NY, shp.name = shp_name, centroid = centroid,
+#' id <- scan_seq(data = covid_US, shp.name = shp_name, centroid = centroid,
 #'                pop.upper.bound = .2, n.simulations = 999, alpha.level = .05, save = FALSE)
 #'
 #' # Assign appropriate working directory before scan_plot()
-#' scan_plot(data = covid_NY, shp = shp_NY, id = id, allmap = FALSE)
+#' scan_plot(data = covid_US, shp = shp_US, id = id, allmap = FALSE)
 
 scan_plot <- function(data, shp, id, allmap = FALSE) {
 

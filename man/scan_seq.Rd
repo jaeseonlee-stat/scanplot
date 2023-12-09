@@ -35,14 +35,14 @@ We assumed a Zero-inflated Poisson distribution if the zero cases in data exceed
 }
 \examples{
 # Load the data
-data(covid_NY)
+data(covid_US)
 data(shp_name)
 data(centroid)
 
 # Implement spatial scan statistics
 # Assign appropriate working directory before "save = TRUE"
 # setwd('your working directory')
-id <- scan_seq(data = covid_NY, shp.name = shp_name, centroid = centroid,
+id <- scan_seq(data = covid_US, shp.name = shp_name, centroid = centroid,
                pop.upper.bound = .2, n.simulations = 999, alpha.level = .05, save = FALSE)
 id
 }

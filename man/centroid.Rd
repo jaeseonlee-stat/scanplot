@@ -5,19 +5,18 @@
 \alias{centroid}
 \title{centroid}
 \format{
-\subsection{'centroid'}{
+centroid is a data frame with 338 counties (rows) and  2 spatial coordinates (columns).
 
-A data frame with 338 rows and 2 columns:
 \describe{
-\item{X}{longitude}
-\item{Y}{latitude}
-}
+\item{X coordinate}{The first column represents 'longitude'}
+\item{Y coordinate}{The second column represents 'latitude'}
 }
 }
 \usage{
 centroid
 }
 \description{
-A subset of data from
+The dataset represents 338 counties (rows) with their coordinates, that is, latitude and longitude (columns).
+Incorporated 338 counties are identical to covid_US data.
 }
 \keyword{datasets}
