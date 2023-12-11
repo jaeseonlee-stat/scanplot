@@ -12,7 +12,7 @@ To install '*scanplot*' package, use the following code into your R console:
 
 ``` r
 library(devtools)
-devtools::install_github("jaeseonlee/scanplot")
+devtools::install_github("jaeseonlee-stat/scanplot")
 ```
 
 ## Usage
